@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: 27030
+    database_name: symfony
+    database_user: root
+    database_password: _AdminSeg_2024
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: cd3a724ecfcd5b8155a83acb92b4165aee8dc6dcz
+    jwt_secret_key: '4d6f7e1f3b2e5a8d9c7f6e1d2a4b5c6e7f8d9a0b1c2d3e4f5a6b7c8d9e0f1a2'
