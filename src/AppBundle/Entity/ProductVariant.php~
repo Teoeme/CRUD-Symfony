@@ -1,0 +1,89 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="product_variant")
+ */
+class ProductVariant
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="productVariants")
+     * @ORM\JoinColumn(name="variant_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $variant;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return ProductVariant
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set variant
+     *
+     * @param \AppBundle\Entity\Product $variant
+     *
+     * @return ProductVariant
+     */
+    public function setVariant(\AppBundle\Entity\Product $variant = null)
+    {
+        $this->variant = $variant;
+
+        return $this;
+    }
+
+    /**
+     * Get variant
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getVariant()
+    {
+        return $this->variant;
+    }
+}

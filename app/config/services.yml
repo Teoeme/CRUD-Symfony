@@ -1,0 +1,60 @@
+# Learn more about services, parameters and containers at
+
+# http://symfony.com/doc/current/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    app.product_service:
+        class: AppBundle\Service\ProductService
+        arguments: ['@doctrine.orm.entity_manager','@jms_serializer']
+        name: product_service
+
+    app.category_service:
+        class: AppBundle\Service\CategoryService
+        arguments: ['@doctrine.orm.entity_manager','@logger','@jms_serializer']
+        name: category_service
+
+    app.user_service:
+        class: AppBundle\Service\UserService
+        arguments: ['@doctrine.orm.entity_manager','@logger','@security.password_encoder','@jms_serializer']
+        name: user_service
+
+    app.jwt_token_authenticator:
+        class: AppBundle\Security\JwtTokenAuthenticator
+        arguments:
+            $userProvider: '@app.user_provider'
+            $jwtSecretKey: '%jwt_secret_key%'
+            $logger: '@logger'
+
+    app.jwt_token_service:
+        class: AppBundle\Service\JwtTokenService
+        arguments:
+            $secretKey: '%jwt_secret_key%'
+            $logger: '@logger'
+    
+    app.attribute_service:
+        class: AppBundle\Service\AttributeService
+        arguments:
+            $logger: '@doctrine.orm.entity_manager'
+            $serializer: '@jms_serializer'
+
+    app.user_provider:
+        class: Symfony\Bridge\Doctrine\Security\User\EntityUserProvider
+        arguments:
+            - '@doctrine'
+            - 'AppBundle:User'
+            - 'username'
+
+    app.cors_listener:
+        class: AppBundle\EventListener\CorsListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 255 }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+
+
+    
+    
+
+ 
